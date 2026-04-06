@@ -1,16 +1,67 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState, useRef } from "react";
+import Navbar from "@/components/Navbar";
+import HeroSection from "@/components/HeroSection";
+import EducationalSection from "@/components/EducationalSection";
+import WhatsAppSimulation, { AnswerRecord } from "@/components/WhatsAppSimulation";
+import ResultsSection from "@/components/ResultsSection";
+import Footer from "@/components/Footer";
 
-// IMPORTANT: Fully REPLACE this with your own code
-const PlaceholderIndex = () => {
-  // PLACEHOLDER: Replace this entire return statement with the user's app.
-  // The inline background color is intentionally not part of the design system.
+type View = "home" | "education" | "simulation" | "results";
+
+const Index = () => {
+  const [currentView, setCurrentView] = useState<View>("home");
+  const [results, setResults] = useState<{ score: number; total: number; answers: AnswerRecord[] } | null>(null);
+  const topRef = useRef<HTMLDivElement>(null);
+
+  const navigate = (view: View) => {
+    setCurrentView(view);
+    topRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const handleQuizComplete = (score: number, total: number, answers: AnswerRecord[]) => {
+    setResults({ score, total, answers });
+    setCurrentView("results");
+    topRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center" style={{ backgroundColor: '#fcfbf8' }}>
-      <img data-lovable-blank-page-placeholder="REMOVE_THIS" src="/placeholder.svg" alt="Your app will live here!" />
+    <div className="min-h-screen flex flex-col" ref={topRef}>
+      <Navbar
+        onNavigate={(section) => navigate(section as View)}
+        currentView={currentView}
+      />
+
+      <main className="flex-1">
+        {currentView === "home" && (
+          <>
+            <HeroSection
+              onStartSimulation={() => navigate("simulation")}
+              onLearnMore={() => navigate("education")}
+            />
+            <EducationalSection />
+          </>
+        )}
+
+        {currentView === "education" && <EducationalSection />}
+
+        {currentView === "simulation" && (
+          <WhatsAppSimulation onComplete={handleQuizComplete} />
+        )}
+
+        {currentView === "results" && results && (
+          <ResultsSection
+            score={results.score}
+            total={results.total}
+            answers={results.answers}
+            onRestart={() => navigate("simulation")}
+            onGoToEducation={() => navigate("education")}
+          />
+        )}
+      </main>
+
+      <Footer />
     </div>
   );
 };
-
-const Index = PlaceholderIndex;
 
 export default Index;
