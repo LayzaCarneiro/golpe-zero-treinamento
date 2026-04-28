@@ -46,13 +46,21 @@ const Navbar = ({ onNavigate, currentView }: NavbarProps) => {
           ))}
         </div>
 
-        <Button
-          onClick={() => onNavigate("simulation")}
-          size="sm"
-          className="hidden md:flex bg-gradient-hero text-primary-foreground font-semibold rounded-lg"
-        >
-          Iniciar Quiz
-        </Button>
+        <div className="hidden md:flex items-center gap-2">
+          <Button asChild variant="outline" size="sm" className="rounded-lg">
+            <Link to={user ? "/members" : "/auth"}>
+              <UserCircle className="w-4 h-4 mr-1" />
+              {user ? "Área de membros" : "Entrar"}
+            </Link>
+          </Button>
+          <Button
+            onClick={() => onNavigate("simulation")}
+            size="sm"
+            className="bg-gradient-hero text-primary-foreground font-semibold rounded-lg"
+          >
+            Iniciar Quiz
+          </Button>
+        </div>
 
         {/* Mobile toggle */}
         <button className="md:hidden p-2" onClick={() => setMobileOpen(!mobileOpen)}>
@@ -72,6 +80,13 @@ const Navbar = ({ onNavigate, currentView }: NavbarProps) => {
               {link.label}
             </button>
           ))}
+          <Link
+            to={user ? "/members" : "/auth"}
+            onClick={() => setMobileOpen(false)}
+            className="block w-full text-left px-4 py-3 rounded-lg text-sm font-medium hover:bg-muted"
+          >
+            {user ? "Área de membros" : "Entrar"}
+          </Link>
         </div>
       )}
     </nav>
