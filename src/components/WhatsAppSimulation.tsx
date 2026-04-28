@@ -79,11 +79,8 @@ const WhatsAppSimulation = ({ onComplete }: SimulationProps) => {
 
   const handleNext = () => {
     if (currentScenario + 1 >= scenarios.length) {
-      const score = answers.filter((a) => a.selectedOption.isCorrect).length + (selectedAnswer?.isCorrect ? 1 : 0);
-      onComplete(score, scenarios.length, [
-        ...answers.slice(0, -1),
-        ...answers.slice(-1),
-      ]);
+      const score = answers.filter((a) => a.selectedOption.isCorrect).length;
+      onComplete(score, scenarios.length, answers);
     } else {
       setCurrentScenario((prev) => prev + 1);
     }
