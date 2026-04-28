@@ -7,7 +7,7 @@ const Footer = () => (
         <div className="p-1 rounded-md bg-gradient-hero">
           <Shield className="w-4 h-4 text-primary-foreground" />
         </div>
-        <span className="font-bold">WhatsGuard</span>
+        <span className="font-bold">SecureLine</span>
       </div>
       <p className="text-sm text-muted-foreground mb-2">
         Plataforma educativa para prevenção de golpes no WhatsApp.
