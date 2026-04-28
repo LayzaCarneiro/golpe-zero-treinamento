@@ -33,7 +33,8 @@ const TrainingPlayer = () => {
         return;
       }
       setTraining(data);
-      setCurrentStepId(data.content.steps?.[0]?.id ?? null);
+      const c: any = data.content;
+      setCurrentStepId(c?.steps?.[0]?.id ?? null);
       setLoading(false);
     })();
   }, [id, navigate]);
@@ -46,7 +47,7 @@ const TrainingPlayer = () => {
     );
   }
 
-  const steps: TrainingStep[] = training.content.steps ?? [];
+  const steps: TrainingStep[] = (training.content as any)?.steps ?? [];
   const currentStep = steps.find((s) => s.id === currentStepId);
 
   const handleSelect = (opt: StepOption) => {

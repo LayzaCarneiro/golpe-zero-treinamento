@@ -1,6 +1,8 @@
-import { Shield, Menu, X } from "lucide-react";
+import { Shield, Menu, X, UserCircle } from "lucide-react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/hooks/useAuth";
 
 interface NavbarProps {
   onNavigate: (section: "home" | "education" | "simulation") => void;
@@ -9,6 +11,7 @@ interface NavbarProps {
 
 const Navbar = ({ onNavigate, currentView }: NavbarProps) => {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { user } = useAuth();
 
   const links = [
     { label: "Início", section: "home" as const },
