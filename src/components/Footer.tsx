@@ -4,9 +4,7 @@ const Footer = () => (
   <footer className="border-t border-border py-8 bg-muted/30">
     <div className="container mx-auto px-4 text-center">
       <div className="flex items-center justify-center gap-2 mb-3">
-        <div className="p-1 rounded-md bg-gradient-hero">
-          <img src="/images/logo.png" alt="SecureLine" className="w-4 h-4" />
-        </div>
+        <img src="/images/logo.png" alt="SecureLine" className="w-4 h-4" />
         <span className="font-bold">SecureLine</span>
       </div>
       <p className="text-sm text-muted-foreground mb-2">
