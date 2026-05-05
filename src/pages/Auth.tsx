@@ -86,9 +86,7 @@ const Auth = () => {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background to-muted p-4">
       <div className="w-full max-w-md">
         <Link to="/" className="flex items-center justify-center gap-2 mb-6">
-          <div className="p-2 rounded-lg bg-primary">
-            <Shield className="w-6 h-6 text-primary-foreground" />
-          </div>
+          <img src="/images/logo.png" alt="SecureLine" className="w-4 h-4" />
           <span className="font-bold text-2xl">SecureLine</span>
         </Link>
 

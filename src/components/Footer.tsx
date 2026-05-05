@@ -1,11 +1,11 @@
-import { Shield, Heart } from "lucide-react";
+import { Heart } from "lucide-react";
 
 const Footer = () => (
   <footer className="border-t border-border py-8 bg-muted/30">
     <div className="container mx-auto px-4 text-center">
       <div className="flex items-center justify-center gap-2 mb-3">
         <div className="p-1 rounded-md bg-gradient-hero">
-          <Shield className="w-4 h-4 text-primary-foreground" />
+          <img src="/images/logo.png" alt="SecureLine" className="w-4 h-4" />
         </div>
         <span className="font-bold">SecureLine</span>
       </div>
