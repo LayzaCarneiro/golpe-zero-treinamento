@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Shield, AlertTriangle, CheckCircle2, RotateCcw, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import type { AnswerRecord } from "@/components/WhatsAppSimulation";
+import type { AnswerRecord } from "@/components/public/WhatsAppSimulation";
 
 interface ResultsProps {
   score: number;

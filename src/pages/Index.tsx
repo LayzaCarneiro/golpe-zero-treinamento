@@ -1,10 +1,10 @@
 import { useState, useRef } from "react";
-import Navbar from "@/components/Navbar";
-import HeroSection from "@/components/HeroSection";
-import EducationalSection from "@/components/EducationalSection";
-import WhatsAppSimulation, { AnswerRecord } from "@/components/WhatsAppSimulation";
-import ResultsSection from "@/components/ResultsSection";
-import Footer from "@/components/Footer";
+import Navbar from "@/components/public/Navbar";
+import HeroSection from "@/components/public/HeroSection";
+import EducationalSection from "@/components/public/EducationalSection";
+import WhatsAppSimulation, { AnswerRecord } from "@/components/public/WhatsAppSimulation";
+import ResultsSection from "@/components/public/ResultsSection";
+import Footer from "@/components/public/Footer";
 
 type View = "home" | "education" | "simulation" | "results";
 

@@ -5,13 +5,13 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthProvider } from "@/hooks/useAuth";
 import ProtectedRoute from "@/components/members/ProtectedRoute";
-import Index from "./pages/Index.tsx";
-import NotFound from "./pages/NotFound.tsx";
-import Auth from "./pages/Auth.tsx";
-import MembersDashboard from "./pages/members/MembersDashboard.tsx";
-import TrainingsList from "./pages/members/TrainingsList.tsx";
-import TrainingPlayer from "./pages/members/TrainingPlayer.tsx";
-import AdminPanel from "./pages/members/AdminPanel.tsx";
+import Index from "@/pages/Index.tsx";
+import NotFound from "@/pages/NotFound.tsx";
+import Auth from "@/pages/Auth.tsx";
+import MembersDashboard from "@/pages/members/MembersDashboard.tsx";
+import TrainingsList from "@/pages/members/TrainingsList.tsx";
+import TrainingPlayer from "@/pages/members/TrainingPlayer.tsx";
+import AdminPanel from "@/pages/members/AdminPanel.tsx";
 
 const queryClient = new QueryClient();
 
