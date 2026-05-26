@@ -1,4 +1,4 @@
-import type { Training } from "@/types/trainings";
+import type { Training } from "@/types/training";
 
 const mockTrainings: Training[] = [
   {

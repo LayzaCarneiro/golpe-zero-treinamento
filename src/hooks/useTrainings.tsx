@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { fetchTrainings } from "@/services/trainings";
-import type { Training } from "@/types/trainings";
+import type { Training } from "@/types/training";
 
 export function useTrainings() {
   const [trainings, setTrainings] = useState<Training[]>([]);
