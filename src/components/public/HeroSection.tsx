@@ -186,21 +186,6 @@ const HeroSection = ({
                   <p className="font-semibold">
                     Ambiente de treinamento
                   </p>
-
-                  <p className="text-sm text-muted-foreground">
-                    Simulações • Quizzes • Educação
-                  </p>
-                </div>
-
-                <div
-                  className="
-                    px-3 py-1 rounded-full
-                    bg-primary/10
-                    text-primary
-                    text-xs font-medium
-                  "
-                >
-                  Online
                 </div>
               </div>
 
@@ -307,7 +292,7 @@ const HeroSection = ({
                       </div>
 
                       <p className="text-sm text-muted-foreground leading-relaxed">
-                        Cenários interativos para testar percepção,
+                        Cenários para testar percepção,
                         comportamento e tomada de decisão.
                       </p>
                     </div>

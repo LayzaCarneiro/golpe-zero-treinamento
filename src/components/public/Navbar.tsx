@@ -82,7 +82,7 @@ const Navbar = ({
               group-hover:scale-105
             "
           >
-                        <img
+            <img
               src="/images/logo.svg"
               alt="SecureLine"
               className="w-10 h-10"

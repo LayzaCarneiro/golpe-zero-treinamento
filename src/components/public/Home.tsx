@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import {
-  ShieldCheck,
+  ShieldAlert,
   Smartphone,
   BrainCircuit,
   BookOpen,
@@ -9,8 +9,7 @@ import {
   ArrowRight,
   CheckCircle2,
   BarChart3,
-  Users,
-  AlertTriangle,
+  Route
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -75,6 +74,7 @@ export default function HomeSections({ onStartSimulation, onLearnMore }: HomeSec
         {[
             {
             number: "01",
+            icon: ShieldAlert,
             title: "Simule ameaças reais",
             description:
                 "Cenários inspirados em golpes modernos utilizados diariamente em aplicativos de mensagem.",
@@ -82,6 +82,7 @@ export default function HomeSections({ onStartSimulation, onLearnMore }: HomeSec
             },
             {
             number: "02",
+            icon: Route,
             title: "Teste decisões",
             description:
                 "Quizzes e interações avaliam percepção de risco e comportamento humano.",
@@ -89,6 +90,7 @@ export default function HomeSections({ onStartSimulation, onLearnMore }: HomeSec
             },
             {
             number: "03",
+            icon: BarChart3,
             title: "Monitore evolução",
             description:
                 "Empresas acompanham métricas, vulnerabilidades e progresso contínuo da equipe.",
@@ -121,13 +123,36 @@ export default function HomeSections({ onStartSimulation, onLearnMore }: HomeSec
                 hover:shadow-[0_20px_80px_rgba(124,58,237,0.15)]
             "
             >
-            {/* Glow */}
-            <div
-                className={`
-                absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500
-                bg-gradient-to-br ${step.glow}
-                `}
-            />
+
+            <div className="flex items-center justify-between mb-10">
+                {/* Icon */}
+                <div
+                    className="
+                    relative
+                    w-16 h-16
+                    rounded-2xl
+                    bg-white/[0.03]
+                    border border-white/10
+                    flex items-center justify-center
+                    backdrop-blur-xl
+                    overflow-hidden
+                    "
+                >
+                    {/* Glow */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                    <step.icon className="relative z-10 w-7 h-7 text-primary" />
+                </div>
+
+                {/* Number */}
+                <div className="flex items-center gap-4 flex-1 ml-4">
+                    <div className="h-px flex-1 bg-gradient-to-r from-primary/30 to-transparent" />
+
+                    <span className="text-xs font-bold tracking-[0.2em] text-zinc-600">
+                    {step.number}
+                    </span>
+                </div>
+            </div>
 
             {/* Noise */}
             <div className="absolute inset-0 opacity-[0.03] bg-[url('/noise.png')]" />
@@ -136,24 +161,6 @@ export default function HomeSections({ onStartSimulation, onLearnMore }: HomeSec
             <div className="absolute inset-[1px] rounded-[31px] border border-white/[0.03]" />
 
             <div className="relative z-10">
-                <div className="flex items-center justify-between mb-10">
-                <div
-                    className="
-                    w-16 h-16 rounded-2xl
-                    bg-white/[0.03]
-                    border border-white/10
-                    flex items-center justify-center
-                    backdrop-blur-xl
-                    "
-                >
-                    <span className="text-2xl font-black text-primary">
-                    {step.number}
-                    </span>
-                </div>
-
-                <div className="h-px flex-1 mx-4 bg-gradient-to-r from-primary/30 to-transparent" />
-                </div>
-
                 <h3 className="text-2xl font-bold mb-5 text-white group-hover:text-primary transition-colors">
                 {step.title}
                 </h3>
