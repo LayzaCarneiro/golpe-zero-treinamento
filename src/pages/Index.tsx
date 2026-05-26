@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import Navbar from "@/components/public/Navbar";
 import HeroSection from "@/components/public/HeroSection";
+import HomeSection from "@/components/public/Home";
 import EducationalSection from "@/components/public/EducationalSection";
 import WhatsAppSimulation, { AnswerRecord } from "@/components/public/WhatsAppSimulation";
 import ResultsSection from "@/components/public/ResultsSection";
@@ -38,7 +39,7 @@ const Index = () => {
               onStartSimulation={() => navigate("simulation")}
               onLearnMore={() => navigate("education")}
             />
-            <EducationalSection />
+            <HomeSection/>
           </>
         )}
 

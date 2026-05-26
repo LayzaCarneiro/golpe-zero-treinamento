@@ -42,8 +42,30 @@ const BlogCard = ({ post, onClick }: { post: BlogPost; onClick: () => void }) =>
       viewport={{ once: true }}
       whileHover={{ y: -4 }}
       onClick={onClick}
-      className="bg-card rounded-2xl shadow-card hover:shadow-elevated transition-all cursor-pointer overflow-hidden group"
+      className="
+        group
+        relative
+        overflow-hidden
+        rounded-[28px]
+        border border-white/10
+        bg-[#0B1020]
+        backdrop-blur-xl
+        transition-all
+        duration-500
+        hover:-translate-y-1
+        hover:border-primary/30
+        hover:shadow-[0_20px_60px_rgba(124,58,237,0.12)]
+      "
     >
+      <div className="
+        absolute inset-0 opacity-0
+        group-hover:opacity-100
+        transition-opacity duration-500
+        bg-gradient-to-br
+        from-primary/10
+        via-secondary/5
+        to-transparent
+      "/>
       <div className="p-6">
         <div className="flex items-center gap-2 mb-4">
           <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold ${colors.bg} ${colors.text}`}>
@@ -52,7 +74,10 @@ const BlogCard = ({ post, onClick }: { post: BlogPost; onClick: () => void }) =>
           </span>
         </div>
 
-        <div className={`inline-flex p-3 rounded-xl ${colors.bg} mb-4`}>
+        <div className={`relative w-14 h-14 rounded-2xl border border-white/10
+          backdrop-blur-xl flex items-center justify-center mb-5 ${colors.bg}
+          group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500
+        `}>
           <Icon className={`w-6 h-6 ${colors.text}`} />
         </div>
 
@@ -268,7 +293,15 @@ const EducationalSection = () => {
     : blogPosts.filter((p) => p.category === activeCategory);
 
   return (
-    <section id="educacional" className="py-20 bg-muted/30">
+    <section id="educacional" className="relative py-24 overflow-hidden bg-[#060816]">
+      {/* Glow */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(124,58,237,0.10),transparent_35%)]" />
+
+      {/* Grid */}
+      <div className="absolute inset-0 opacity-[0.03]
+      bg-[linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)]
+      bg-[size:48px_48px]" />
+
       <div className="container mx-auto px-4">
         <AnimatePresence mode="wait">
           {selectedPost ? (
@@ -294,8 +327,17 @@ const EducationalSection = () => {
                 <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-4">
                   Blog Educativo
                 </span>
-                <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                  Aprenda a se proteger
+                <h2 className="
+                    text-5xl md:text-6xl
+                    font-black
+                    tracking-tight
+                    leading-[1]
+                    mb-6
+                  ">
+                  Aprenda a reconhecer
+                  <span className="block text-transparent bg-gradient-to-r from-primary to-secondary bg-clip-text">
+                    ameaças digitais
+                  </span>
                 </h2>
                 <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
                   Artigos, referências e recursos para entender e combater golpes no WhatsApp.

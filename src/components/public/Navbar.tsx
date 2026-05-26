@@ -1,96 +1,349 @@
-import { Shield, Menu, X, UserCircle } from "lucide-react";
+import {
+  Shield,
+  Menu,
+  X,
+  UserCircle,
+  ChevronRight,
+} from "lucide-react";
+
 import { useState } from "react";
 import { Link } from "react-router-dom";
+
+import { motion, AnimatePresence } from "framer-motion";
+
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
-import { ThemeToggle } from "@/components/ThemeToggle";
 
 interface NavbarProps {
-  onNavigate: (section: "home" | "education" | "simulation") => void;
+  onNavigate: (
+    section: "home" | "education" | "simulation"
+  ) => void;
+
   currentView: string;
 }
 
-const Navbar = ({ onNavigate, currentView }: NavbarProps) => {
-  const [mobileOpen, setMobileOpen] = useState(false);
+const Navbar = ({
+  onNavigate,
+  currentView,
+}: NavbarProps) => {
+  const [mobileOpen, setMobileOpen] =
+    useState(false);
+
   const { user } = useAuth();
 
   const links = [
-    { label: "Início", section: "home" as const },
-    { label: "Aprender", section: "education" as const },
-    { label: "Simulação", section: "simulation" as const },
+    {
+      label: "Início",
+      section: "home" as const,
+    },
+    {
+      label: "Aprender",
+      section: "education" as const,
+    },
+    {
+      label: "Simulação",
+      section: "simulation" as const,
+    },
   ];
 
   return (
-    <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
-      <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-        <button onClick={() => onNavigate("home")} className="flex items-center gap-2">
-          <div className="p-1.5 rounded-lg bg-gradient-hero">
-            <Shield className="w-5 h-5 text-primary-foreground" />
+    <nav
+      className="
+        sticky top-0 z-50
+        border-b border-white/10
+        bg-[#060816]/80
+        backdrop-blur-2xl
+      "
+    >
+      {/* Glow */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(124,58,237,0.12),transparent_40%)]" />
+
+      <div
+        className="
+          relative z-10
+          container mx-auto px-4
+          h-20
+          flex items-center justify-between
+        "
+      >
+        {/* Logo */}
+        <button
+          onClick={() => onNavigate("home")}
+          className="
+            group
+            flex items-center gap-3
+          "
+        >
+          <div
+            className="
+              relative
+              w-11 h-11
+              rounded-2xl
+              bg-gradient-to-br
+              from-primary
+              to-secondary
+              flex items-center justify-center
+              shadow-[0_10px_40px_rgba(124,58,237,0.35)]
+              transition-transform duration-300
+              group-hover:scale-105
+            "
+          >
+            <Shield className="w-5 h-5 text-white" />
           </div>
-          <span className="font-bold text-lg">SecureLine</span>
+
+          <div className="text-left">
+            <p className="text-lg font-black tracking-tight text-white">
+              SecureLine
+            </p>
+
+            <p className="text-[10px] uppercase tracking-[0.2em] text-zinc-500">
+              Security Awareness
+            </p>
+          </div>
         </button>
 
-        {/* Desktop */}
-        <div className="hidden md:flex items-center gap-1">
-          {links.map((link) => (
-            <button
-              key={link.section}
-              onClick={() => onNavigate(link.section)}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                currentView === link.section
-                  ? "bg-primary/10 text-primary"
-                  : "text-muted-foreground hover:text-foreground hover:bg-muted"
-              }`}
-            >
-              {link.label}
-            </button>
-          ))}
+        {/* Desktop Nav */}
+        <div
+          className="
+            hidden md:flex
+            items-center gap-2
+            rounded-2xl
+            border border-white/10
+            bg-white/[0.03]
+            p-1.5
+            backdrop-blur-xl
+          "
+        >
+          {links.map((link) => {
+            const active =
+              currentView === link.section;
+
+            return (
+              <button
+                key={link.section}
+                onClick={() =>
+                  onNavigate(link.section)
+                }
+                className={`
+                  relative
+                  px-5 py-2.5
+                  rounded-xl
+                  text-sm font-medium
+                  transition-all duration-300
+                  ${
+                    active
+                      ? "text-white"
+                      : "text-zinc-400 hover:text-white"
+                  }
+                `}
+              >
+                {active && (
+                  <motion.div
+                    layoutId="navbar-active"
+                    className="
+                      absolute inset-0
+                      rounded-xl
+                      bg-gradient-to-r
+                      from-primary
+                      to-secondary
+                      shadow-[0_10px_30px_rgba(124,58,237,0.35)]
+                    "
+                    transition={{
+                      type: "spring",
+                      bounce: 0.2,
+                      duration: 0.6,
+                    }}
+                  />
+                )}
+
+                <span className="relative z-10">
+                  {link.label}
+                </span>
+              </button>
+            );
+          })}
         </div>
 
-        <div className="hidden md:flex items-center gap-2">
-          <ThemeToggle />
-          <Button asChild variant="outline" size="sm" className="rounded-lg">
+        {/* Desktop Actions */}
+        <div className="hidden md:flex items-center gap-3">
+          <Button
+            asChild
+            variant="outline"
+            size="sm"
+            className="
+              h-11
+              rounded-2xl
+              border-white/10
+              bg-white/[0.03]
+              hover:bg-white/[0.06]
+              text-white
+              backdrop-blur-xl
+            "
+          >
             <Link to={user ? "/members" : "/auth"}>
-              <UserCircle className="w-4 h-4 mr-1" />
-              {user ? "Área de membros" : "Entrar"}
+              <UserCircle className="w-4 h-4 mr-2" />
+
+              {user
+                ? "Área de membros"
+                : "Entrar"}
             </Link>
           </Button>
+
           <Button
-            onClick={() => onNavigate("simulation")}
-            size="sm"
-            className="bg-gradient-hero text-primary-foreground font-semibold rounded-lg"
+            onClick={() =>
+              onNavigate("simulation")
+            }
+            className="
+              h-11 px-5
+              rounded-2xl
+              text-sm font-semibold
+              bg-gradient-to-r
+              from-primary
+              to-secondary
+              shadow-[0_10px_40px_rgba(124,58,237,0.35)]
+              hover:opacity-90
+            "
           >
             Iniciar Quiz
+
+            <ChevronRight className="w-4 h-4 ml-1" />
           </Button>
         </div>
 
-        {/* Mobile toggle */}
-        <button className="md:hidden p-2" onClick={() => setMobileOpen(!mobileOpen)}>
-          {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+        {/* Mobile Toggle */}
+        <button
+          className="
+            md:hidden
+            w-11 h-11
+            rounded-2xl
+            border border-white/10
+            bg-white/[0.03]
+            flex items-center justify-center
+            text-white
+          "
+          onClick={() =>
+            setMobileOpen(!mobileOpen)
+          }
+        >
+          {mobileOpen ? (
+            <X className="w-5 h-5" />
+          ) : (
+            <Menu className="w-5 h-5" />
+          )}
         </button>
       </div>
 
-      {/* Mobile menu */}
-      {mobileOpen && (
-        <div className="md:hidden border-b border-border bg-background p-4 space-y-2">
-          {links.map((link) => (
-            <button
-              key={link.section}
-              onClick={() => { onNavigate(link.section); setMobileOpen(false); }}
-              className="block w-full text-left px-4 py-3 rounded-lg text-sm font-medium hover:bg-muted"
-            >
-              {link.label}
-            </button>
-          ))}
-          <Link
-            to={user ? "/members" : "/auth"}
-            onClick={() => setMobileOpen(false)}
-            className="block w-full text-left px-4 py-3 rounded-lg text-sm font-medium hover:bg-muted"
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={{
+              opacity: 0,
+              y: -10,
+            }}
+            animate={{
+              opacity: 1,
+              y: 0,
+            }}
+            exit={{
+              opacity: 0,
+              y: -10,
+            }}
+            transition={{
+              duration: 0.2,
+            }}
+            className="
+              md:hidden
+              border-t border-white/5
+              bg-[#060816]/95
+              backdrop-blur-2xl
+            "
           >
-            {user ? "Área de membros" : "Entrar"}
-          </Link>
-        </div>
-      )}
+            <div className="container mx-auto px-4 py-5 space-y-2">
+              {links.map((link) => {
+                const active =
+                  currentView === link.section;
+
+                return (
+                  <button
+                    key={link.section}
+                    onClick={() => {
+                      onNavigate(link.section);
+
+                      setMobileOpen(false);
+                    }}
+                    className={`
+                      w-full
+                      flex items-center justify-between
+                      px-4 py-4
+                      rounded-2xl
+                      text-sm font-medium
+                      transition-all duration-300
+                      ${
+                        active
+                          ? "bg-gradient-to-r from-primary to-secondary text-white"
+                          : "bg-white/[0.03] text-zinc-300 hover:bg-white/[0.06]"
+                      }
+                    `}
+                  >
+                    {link.label}
+
+                    <ChevronRight className="w-4 h-4 opacity-60" />
+                  </button>
+                );
+              })}
+
+              <Link
+                to={user ? "/members" : "/auth"}
+                onClick={() =>
+                  setMobileOpen(false)
+                }
+                className="
+                  w-full
+                  flex items-center justify-between
+                  px-4 py-4
+                  rounded-2xl
+                  bg-white/[0.03]
+                  text-sm font-medium
+                  text-zinc-300
+                  hover:bg-white/[0.06]
+                  transition-all
+                "
+              >
+                <div className="flex items-center gap-2">
+                  <UserCircle className="w-4 h-4" />
+
+                  {user
+                    ? "Área de membros"
+                    : "Entrar"}
+                </div>
+
+                <ChevronRight className="w-4 h-4 opacity-60" />
+              </Link>
+
+              <Button
+                onClick={() => {
+                  onNavigate("simulation");
+
+                  setMobileOpen(false);
+                }}
+                className="
+                  w-full
+                  h-12
+                  rounded-2xl
+                  mt-2
+                  bg-gradient-to-r
+                  from-primary
+                  to-secondary
+                  shadow-[0_10px_40px_rgba(124,58,237,0.35)]
+                "
+              >
+                Iniciar Quiz
+              </Button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 };
