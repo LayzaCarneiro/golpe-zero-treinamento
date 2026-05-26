@@ -5,9 +5,3 @@ export async function getUserProfile(userId: string) {
   if (error) throw error;
   return data;
 }
-
-export async function getTrainingProgress(userId: string) {
-  const { data, error } = await supabase.from("training_progress").select("*").eq("user_id", userId);
-  if (error) throw error;
-  return data ?? [];
-}

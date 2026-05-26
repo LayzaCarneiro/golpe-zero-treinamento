@@ -7,6 +7,7 @@
 @layer base {
   :root {
     --background: 0 0% 100%;
+    /* Textos em azul profundo #0F172A */
     --foreground: 222 47% 11%;
 
     --card: 0 0% 100%;
@@ -15,20 +16,20 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222 47% 11%;
 
-    /* Roxo principal #7C3AED */
-    --primary: 262 83% 58%;
+    /* Azul profundo como primário (textos, botões principais) */
+    --primary: 222 47% 11%;
     --primary-foreground: 0 0% 100%;
 
-    /* Rosa #D60099 */
-    --secondary: 318 100% 42%;
+    /* Roxo #7C3AED como secundário/detalhes */
+    --secondary: 262 83% 58%;
     --secondary-foreground: 0 0% 100%;
 
     --muted: 240 20% 96%;
-    --muted-foreground: 222 15% 40%;
+    --muted-foreground: 222 25% 35%;
 
-    /* Azul profundo #0F172A como accent escuro */
+    /* Accent roxo suave */
     --accent: 262 60% 96%;
-    --accent-foreground: 262 83% 35%;
+    --accent-foreground: 262 83% 40%;
 
     --destructive: 0 72% 55%;
     --destructive-foreground: 0 0% 100%;
@@ -47,10 +48,10 @@
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 222 47% 15%;
-    --sidebar-primary: 262 83% 58%;
+    --sidebar-primary: 222 47% 11%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 262 60% 96%;
-    --sidebar-accent-foreground: 262 83% 35%;
+    --sidebar-accent-foreground: 262 83% 40%;
     --sidebar-border: 240 15% 90%;
     --sidebar-ring: 262 83% 58%;
 
@@ -61,75 +62,77 @@
     --whatsapp-bubble-received: 0 0% 100%;
     --whatsapp-header: 142 70% 30%;
 
-    /* Gradient tokens — roxo + azul + rosa */
-    --gradient-hero: linear-gradient(135deg, #0F172A 0%, #7C3AED 55%, #D60099 100%);
+    /* Gradientes — foco em roxo + azul */
+    --gradient-hero: linear-gradient(135deg, #0F172A 0%, #3B2F9E 50%, #7C3AED 100%);
     --gradient-card: linear-gradient(180deg, hsl(0 0% 100%), hsl(240 20% 98%));
     --gradient-warning: linear-gradient(135deg, hsl(38 92% 55%), hsl(20 90% 55%));
-    --gradient-accent: linear-gradient(135deg, #7C3AED, #D60099);
+    --gradient-accent: linear-gradient(135deg, #1E3A8A, #7C3AED);
 
-    /* Shadow tokens */
-    --shadow-card: 0 4px 24px -4px hsl(262 83% 30% / 0.10);
-    --shadow-elevated: 0 12px 40px -8px hsl(262 83% 30% / 0.18);
-    --shadow-glow: 0 0 40px hsl(318 100% 50% / 0.25);
+    /* Shadows */
+    --shadow-card: 0 4px 24px -4px hsl(262 60% 30% / 0.10);
+    --shadow-elevated: 0 12px 40px -8px hsl(262 60% 30% / 0.18);
+    --shadow-glow: 0 0 40px hsl(262 83% 58% / 0.25);
   }
 
   .dark {
-    --background: 222 47% 7%;
-    --foreground: 240 20% 96%;
+    /* Dark suave, azul-noite ao invés de preto */
+    --background: 224 35% 14%;
+    --foreground: 240 25% 96%;
 
-    --card: 222 45% 11%;
-    --card-foreground: 240 20% 96%;
+    --card: 224 32% 18%;
+    --card-foreground: 240 25% 96%;
 
-    --popover: 222 45% 11%;
-    --popover-foreground: 240 20% 96%;
+    --popover: 224 32% 18%;
+    --popover-foreground: 240 25% 96%;
 
-    --primary: 262 90% 68%;
-    --primary-foreground: 222 47% 11%;
+    /* No dark, primário fica claro para contraste */
+    --primary: 240 25% 96%;
+    --primary-foreground: 224 35% 14%;
 
-    --secondary: 318 100% 55%;
-    --secondary-foreground: 0 0% 100%;
+    --secondary: 262 85% 70%;
+    --secondary-foreground: 224 35% 14%;
 
-    --muted: 222 35% 16%;
-    --muted-foreground: 240 15% 70%;
+    --muted: 224 25% 22%;
+    --muted-foreground: 240 15% 75%;
 
-    --accent: 262 60% 20%;
-    --accent-foreground: 262 90% 85%;
+    --accent: 262 50% 28%;
+    --accent-foreground: 262 90% 88%;
 
-    --destructive: 0 70% 50%;
+    --destructive: 0 70% 55%;
     --destructive-foreground: 0 0% 100%;
 
-    --success: 152 55% 50%;
+    --success: 152 55% 55%;
     --success-foreground: 0 0% 100%;
 
-    --warning: 38 92% 60%;
+    --warning: 38 92% 62%;
     --warning-foreground: 38 80% 15%;
 
-    --border: 222 35% 18%;
-    --input: 222 35% 18%;
-    --ring: 262 90% 68%;
+    --border: 224 25% 26%;
+    --input: 224 25% 26%;
+    --ring: 262 85% 70%;
 
-    --sidebar-background: 222 47% 9%;
-    --sidebar-foreground: 240 20% 90%;
-    --sidebar-primary: 262 90% 68%;
-    --sidebar-primary-foreground: 222 47% 11%;
-    --sidebar-accent: 262 60% 20%;
-    --sidebar-accent-foreground: 262 90% 85%;
-    --sidebar-border: 222 35% 18%;
-    --sidebar-ring: 262 90% 68%;
+    --sidebar-background: 224 35% 12%;
+    --sidebar-foreground: 240 20% 92%;
+    --sidebar-primary: 240 25% 96%;
+    --sidebar-primary-foreground: 224 35% 14%;
+    --sidebar-accent: 262 50% 28%;
+    --sidebar-accent-foreground: 262 90% 88%;
+    --sidebar-border: 224 25% 26%;
+    --sidebar-ring: 262 85% 70%;
 
-    --whatsapp-green: 142 60% 40%;
-    --whatsapp-bg: 222 30% 14%;
-    --whatsapp-bubble-sent: 262 40% 25%;
-    --whatsapp-bubble-received: 222 35% 18%;
-    --whatsapp-header: 142 60% 25%;
+    --whatsapp-green: 142 60% 45%;
+    --whatsapp-bg: 224 30% 20%;
+    --whatsapp-bubble-sent: 262 40% 32%;
+    --whatsapp-bubble-received: 224 28% 24%;
+    --whatsapp-header: 142 55% 30%;
 
-    --gradient-hero: linear-gradient(135deg, #0F172A 0%, #7C3AED 55%, #D60099 100%);
-    --gradient-card: linear-gradient(180deg, hsl(222 45% 12%), hsl(222 47% 9%));
-    --gradient-accent: linear-gradient(135deg, #7C3AED, #D60099);
+    --gradient-hero: linear-gradient(135deg, #1E293B 0%, #4C3AB8 50%, #9B6BFF 100%);
+    --gradient-card: linear-gradient(180deg, hsl(224 32% 20%), hsl(224 35% 16%));
+    --gradient-accent: linear-gradient(135deg, #3B5BDB, #9B6BFF);
 
-    --shadow-card: 0 4px 24px -4px hsl(0 0% 0% / 0.4);
-    --shadow-elevated: 0 12px 40px -8px hsl(0 0% 0% / 0.5);
-    --shadow-glow: 0 0 40px hsl(318 100% 55% / 0.35);
+    --shadow-card: 0 4px 24px -4px hsl(224 50% 4% / 0.5);
+    --shadow-elevated: 0 12px 40px -8px hsl(224 50% 4% / 0.6);
+    --shadow-glow: 0 0 40px hsl(262 85% 70% / 0.35);
   }
 }
 
