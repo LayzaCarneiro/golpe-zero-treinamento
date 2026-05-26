@@ -39,7 +39,10 @@ const Index = () => {
               onStartSimulation={() => navigate("simulation")}
               onLearnMore={() => navigate("education")}
             />
-            <HomeSection/>
+            <HomeSection
+              onStartSimulation={() => navigate("simulation")}
+              onLearnMore={() => navigate("education")}
+            />
           </>
         )}
 

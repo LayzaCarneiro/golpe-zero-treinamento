@@ -9,20 +9,11 @@ const Footer = () => (
       <div className="flex flex-col items-center text-center">
         {/* Logo */}
         <div className="flex items-center gap-3 mb-4">
-          <div
-            className="
-              w-10 h-10 rounded-2xl
-              bg-gradient-to-br from-primary to-secondary
-              flex items-center justify-center
-              shadow-[0_10px_30px_rgba(124,58,237,0.25)]
-            "
-          >
-            <img
-              src="/images/logo.svg"
-              alt="SecureLine"
-              className="w-5 h-5"
-            />
-          </div>
+          <img
+            src="/images/logo.svg"
+            alt="SecureLine"
+            className="w-8 h-8"
+          />
 
           <span className="text-lg font-bold text-white">
             SecureLine

@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import {
   ShieldCheck,
   Smartphone,
@@ -14,7 +15,13 @@ import {
 
 import { Button } from "@/components/ui/button";
 
-export default function HomeSections() {
+interface HomeSectionsProps {
+  onStartSimulation?: () => void;
+  onLearnMore?: () => void;
+}
+
+export default function HomeSections({ onStartSimulation, onLearnMore }: HomeSectionsProps) {
+  const navigate = useNavigate();
   return (
     <div className="bg-[#060816] text-white">
       {/* TRUST BAR */}
@@ -203,6 +210,7 @@ export default function HomeSections() {
                 "bg-emerald-500/10 border-emerald-400/20",
             iconColor: "text-emerald-400",
             accent: "bg-emerald-400",
+            action: onStartSimulation || (() => navigate("simulation")),
             },
             {
             icon: BrainCircuit,
@@ -218,6 +226,7 @@ export default function HomeSections() {
                 "bg-yellow-500/10 border-yellow-400/20",
             iconColor: "text-yellow-300",
             accent: "bg-yellow-400",
+            action: onStartSimulation || (() => navigate("simulation")),
             },
             {
             icon: BookOpen,
@@ -233,6 +242,7 @@ export default function HomeSections() {
                 "bg-violet-500/10 border-violet-400/20",
             iconColor: "text-violet-300",
             accent: "bg-violet-400",
+            action: onLearnMore || (() => navigate("education")),
             },
             {
             icon: LayoutDashboard,
@@ -248,6 +258,8 @@ export default function HomeSections() {
                 "bg-red-500/10 border-red-400/20",
             iconColor: "text-red-300",
             accent: "bg-red-400",
+            action: () => navigate("/members/admin"),
+            route: "/members/",
             },
         ].map((module, index) => {
             const Icon = module.icon;
@@ -265,6 +277,7 @@ export default function HomeSections() {
                 whileHover={{
                 y: -10,
                 }}
+                onClick={() => module.action?.()}
                 className={`
                 group
                 relative
@@ -275,6 +288,7 @@ export default function HomeSections() {
                 p-8
                 transition-all
                 duration-500
+                cursor-pointer
                 ${module.border}
                 ${module.shadow}
                 `}
@@ -399,6 +413,7 @@ export default function HomeSections() {
               <Button
                 size="lg"
                 className="h-14 px-8 rounded-2xl text-base font-semibold bg-gradient-to-r from-primary to-secondary shadow-[0_10px_40px_rgba(124,58,237,0.35)]"
+                onClick={() => (onStartSimulation || (() => navigate("simulation")))()}
               >
                 Começar treinamento
               </Button>
@@ -407,6 +422,7 @@ export default function HomeSections() {
                 size="lg"
                 variant="outline"
                 className="h-14 px-8 rounded-2xl text-base font-semibold border-white/10 bg-white/[0.03] hover:bg-white/[0.06] text-white"
+                onClick={() => navigate("/members/admin")}
               >
                 Ver plataforma
                 <ArrowRight className="w-5 h-5 ml-2" />

@@ -77,19 +77,21 @@ const Navbar = ({
           <div
             className="
               relative
-              w-11 h-11
-              rounded-2xl
-              bg-gradient-to-br
-              from-primary
-              to-secondary
               flex items-center justify-center
-              shadow-[0_10px_40px_rgba(124,58,237,0.35)]
               transition-transform duration-300
               group-hover:scale-105
             "
           >
-            <Shield className="w-5 h-5 text-white" />
+                        <img
+              src="/images/logo.svg"
+              alt="SecureLine"
+              className="w-10 h-10"
+            />
           </div>
+{/* 
+          <div className="flex items-center gap-3 mb-4">
+
+          </div> */}
 
           <div className="text-left">
             <p className="text-lg font-black tracking-tight text-white">
