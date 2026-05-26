@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 interface NavbarProps {
   onNavigate: (section: "home" | "education" | "simulation") => void;
@@ -47,6 +48,7 @@ const Navbar = ({ onNavigate, currentView }: NavbarProps) => {
         </div>
 
         <div className="hidden md:flex items-center gap-2">
+          <ThemeToggle />
           <Button asChild variant="outline" size="sm" className="rounded-lg">
             <Link to={user ? "/members" : "/auth"}>
               <UserCircle className="w-4 h-4 mr-1" />
