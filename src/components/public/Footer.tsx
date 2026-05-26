@@ -32,24 +32,6 @@ const Footer = () => (
           <Heart className="w-3.5 h-3.5 text-purple-400 fill-purple-400" />
           para proteger pequenos negócios
         </p>
-
-        {/* Warning */}
-        <div
-          className="
-            flex items-center gap-2
-            rounded-full
-            border border-white/10
-            bg-white/[0.03]
-            px-4 py-2
-            text-xs text-zinc-400
-          "
-        >
-          <ShieldCheck className="w-3.5 h-3.5 text-primary" />
-
-          <span>
-            Ambiente de simulação educativa. Nenhum dado sensível é coletado.
-          </span>
-        </div>
       </div>
     </div>
   </footer>

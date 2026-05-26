@@ -7,6 +7,8 @@ import {
   BrainCircuit,
   CheckCircle2,
   AlertTriangle,
+  PersonStanding,
+  ContactRound,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -224,11 +226,11 @@ const HeroSection = ({
                     <div
                       className="
                         w-12 h-12 rounded-2xl
-                        bg-primary/10
+                        bg-secondary/10
                         flex items-center justify-center
                       "
                     >
-                      <Smartphone className="w-6 h-6 text-primary" />
+                      <Smartphone className="w-6 h-6 text-secondary" />
                     </div>
 
                     <div className="flex-1">
@@ -242,7 +244,7 @@ const HeroSection = ({
                             text-xs
                             rounded-full
                             bg-secondary/10
-                            text-secondary
+                            text-primary
                             px-2 py-1
                           "
                         >
@@ -295,7 +297,7 @@ const HeroSection = ({
                           className="
                             text-xs
                             rounded-full
-                            bg-primary/10
+                            bg-secondary/10
                             text-primary
                             px-2 py-1
                           "
@@ -332,11 +334,11 @@ const HeroSection = ({
                     <div
                       className="
                         w-12 h-12 rounded-2xl
-                        bg-primary/10
+                        bg-secondary/10
                         flex items-center justify-center
                       "
                     >
-                      <BookOpen className="w-6 h-6 text-primary" />
+                      <BookOpen className="w-6 h-6 text-secondary" />
                     </div>
 
                     <div className="flex-1">
@@ -349,7 +351,7 @@ const HeroSection = ({
                           className="
                             text-xs
                             rounded-full
-                            bg-primary/10
+                            bg-secondary/10
                             text-primary
                             px-2 py-1
                           "
@@ -380,7 +382,7 @@ const HeroSection = ({
                   "
                 >
                   <div className="flex items-start gap-3">
-                    <AlertTriangle className="w-5 h-5 text-primary mt-0.5" />
+                    <ContactRound className="w-5 h-5 text-primary mt-0.5" />
 
                     <div>
                       <p className="font-medium mb-1">
@@ -389,7 +391,7 @@ const HeroSection = ({
 
                       <p className="text-sm text-muted-foreground leading-relaxed">
                         A maioria dos golpes explora confiança, urgência
-                        e distração — não vulnerabilidades técnicas.
+                        e distração, não vulnerabilidades técnicas.
                       </p>
                     </div>
                   </div>

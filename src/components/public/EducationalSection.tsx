@@ -58,6 +58,7 @@ const BlogCard = ({ post, onClick }: { post: BlogPost; onClick: () => void }) =>
       "
     >
       <div className="
+        pointer-events-none
         absolute inset-0 opacity-0
         group-hover:opacity-100
         transition-opacity duration-500
@@ -67,7 +68,7 @@ const BlogCard = ({ post, onClick }: { post: BlogPost; onClick: () => void }) =>
         to-transparent
       "/>
       <div className="p-6">
-        <div className="flex items-center gap-2 mb-4">
+        <div className="flex items-center gap-2 mb-2">
           <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold ${colors.bg} ${colors.text}`}>
             <Tag className="w-3 h-3" />
             {post.category}
@@ -158,7 +159,7 @@ const BlogPostView = ({ post, onBack }: { post: BlogPost; onBack: () => void }) 
     >
       <button
         onClick={onBack}
-        className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-8 group"
+        className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-4 group"
       >
         <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
         Voltar para artigos
@@ -282,23 +283,26 @@ const BlogPostView = ({ post, onBack }: { post: BlogPost; onBack: () => void }) 
   );
 };
 
-const categories = ["Todos", ...Array.from(new Set(blogPosts.map((p) => p.category)))];
-
 const EducationalSection = () => {
   const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
   const [activeCategory, setActiveCategory] = useState("Todos");
 
-  const filtered = activeCategory === "Todos"
+  const categories = [
+    "Todos",
+    ...Array.from(new Set(blogPosts.map((post) => post.category))),
+  ];
+
+  const filteredPosts = activeCategory === "Todos"
     ? blogPosts
-    : blogPosts.filter((p) => p.category === activeCategory);
+    : blogPosts.filter((post) => post.category === activeCategory);
 
   return (
-    <section id="educacional" className="relative py-24 overflow-hidden bg-[#060816]">
+    <section id="educacional" className="relative py-14 md:py-16 overflow-hidden bg-[#060816]">
       {/* Glow */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(124,58,237,0.10),transparent_35%)]" />
+      <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_top,rgba(124,58,237,0.10),transparent_35%)]" />
 
       {/* Grid */}
-      <div className="absolute inset-0 opacity-[0.03]
+      <div className="absolute inset-0 pointer-events-none opacity-[0.03]
       bg-[linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)]
       bg-[size:48px_48px]" />
 
@@ -363,7 +367,7 @@ const EducationalSection = () => {
 
               {/* Posts Grid */}
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filtered.map((post) => (
+                {filteredPosts.map((post) => (
                   <BlogCard
                     key={post.id}
                     post={post}
