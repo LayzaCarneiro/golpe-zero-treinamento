@@ -11,7 +11,7 @@ export const ThemeToggle = ({ className }: { className?: string }) => {
       variant="ghost"
       size="icon"
       aria-label="Alternar tema"
-      onClick={() => setTheme(isDark ? "light" : "dark")}
+      onClick={() => setTheme(isDark ? "dark" : "dark")}
       className={className}
     >
       {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
