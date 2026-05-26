@@ -3,7 +3,7 @@
 Uma plataforma web moderna e interativa para conscientização e prevenção de fraudes digitais através de simulações realistas, educação comportamental e analytics corporativo.
 
 ### Preview do Projeto
-Acesse e teste a versão web do projeto em: **[SecureLine](https://golpe-zero-treinamento.vercel.app/)**
+Acesse e teste a versão web do projeto em: **[SecureLine](https://secure-line.vercel.app/)**
 
 
 ---
