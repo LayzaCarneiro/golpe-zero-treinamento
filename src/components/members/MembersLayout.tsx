@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Shield, LogOut, LayoutDashboard, GraduationCap, Users } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const MembersLayout = ({ children }: { children: ReactNode }) => {
   const { user, signOut, isAdmin, isPending } = useAuth();
@@ -35,6 +36,7 @@ const MembersLayout = ({ children }: { children: ReactNode }) => {
           </Link>
           <div className="flex items-center gap-2">
             <span className="text-sm text-muted-foreground hidden sm:block">{user?.email}</span>
+            <ThemeToggle />
             <Button variant="ghost" size="sm" onClick={handleSignOut}>
               <LogOut className="w-4 h-4" />
             </Button>
