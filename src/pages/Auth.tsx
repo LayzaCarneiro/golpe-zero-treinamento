@@ -112,7 +112,8 @@ const Auth = () => {
 
     setLoading(true);
 
-    if (parsed.data.accessCode !== ACCESS_CODE) {
+    if (parsed.data.accessCode !== ACCESS_CODE
+) {
       setLoading(false);
 
       toast({
@@ -494,7 +495,7 @@ const Auth = () => {
 
                   <div className="space-y-2">
                     <Label className="text-zinc-300">
-                      E-mail
+                      Username
                     </Label>
 
                     <Input

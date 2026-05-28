@@ -134,7 +134,7 @@ const Navbar = ({
                   transition-all duration-300
                   ${
                     active
-                      ? "text-white"
+                      ? "text-black"
                       : "text-zinc-400 hover:text-white"
                   }
                 `}
