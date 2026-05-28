@@ -23,26 +23,8 @@ export default function HomeSections({ onStartSimulation, onLearnMore }: HomeSec
   const navigate = useNavigate();
   return (
     <div className="bg-[#060816] text-white">
-      {/* TRUST BAR */}
       <section className="border-y border-white/5 bg-white/[0.02] backdrop-blur-xl">
-        <div className="container mx-auto px-4 py-5">
-          <div className="flex flex-wrap items-center justify-center gap-8 md:gap-14 text-sm text-zinc-400">
-            {[
-              "Treinamento interativo",
-              "Simulações realistas",
-              "Segurança comportamental",
-              "Analytics corporativo",
-              "Conscientização contínua",
-            ].map((item) => (
-              <div
-                key={item}
-                className="flex items-center gap-2"
-              >
-                <CheckCircle2 className="w-4 h-4 text-primary" />
-                <span>{item}</span>
-              </div>
-            ))}
-          </div>
+        <div className="container mx-auto px-4 py-1">
         </div>
       </section>
 
