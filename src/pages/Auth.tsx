@@ -32,6 +32,8 @@ import {
   LockKeyhole,
 } from "lucide-react";
 
+const ACCESS_CODE = "SecureL1n&";
+
 const signUpSchema = z.object({
   fullName: z
     .string()
@@ -49,6 +51,10 @@ const signUpSchema = z.object({
     .string()
     .min(8, "Mínimo 8 caracteres")
     .max(72),
+
+  accessCode: z
+    .string()
+    .min(3, "Código inválido"),
 });
 
 const signInSchema = z.object({
@@ -72,19 +78,13 @@ const Auth = () => {
 
   // SIGN UP
   const [name, setName] = useState("");
-
-  const [emailUp, setEmailUp] =
-    useState("");
-
-  const [passwordUp, setPasswordUp] =
-    useState("");
+  const [emailUp, setEmailUp] = useState("");
+  const [passwordUp, setPasswordUp] = useState("");
+  const [accessCode, setAccessCode] = useState("");
 
   // SIGN IN
-  const [emailIn, setEmailIn] =
-    useState("");
-
-  const [passwordIn, setPasswordIn] =
-    useState("");
+  const [emailIn, setEmailIn] = useState("");
+  const [passwordIn, setPasswordIn] = useState("");
 
   const handleSignUp = async (
     e: React.FormEvent
@@ -96,6 +96,7 @@ const Auth = () => {
         fullName: name,
         email: emailUp,
         password: passwordUp,
+        accessCode
       });
 
     if (!parsed.success) {
@@ -110,6 +111,19 @@ const Auth = () => {
     }
 
     setLoading(true);
+
+    if (parsed.data.accessCode !== ACCESS_CODE) {
+      setLoading(false);
+
+      toast({
+        title: "Código inválido",
+        description:
+          "O código de acesso informado é inválido.",
+        variant: "destructive",
+      });
+
+      return;
+    }
 
     const { error } =
       await supabase.auth.signUp({
@@ -142,7 +156,7 @@ const Auth = () => {
     toast({
       title: "Conta criada!",
       description:
-        "Sua conta foi criada e está aguardando aprovação.",
+        "Seu acesso foi liberado com sucesso.",
     });
 
     navigate("/members");
@@ -428,6 +442,33 @@ const Auth = () => {
                 >
                   <div className="space-y-2">
                     <Label className="text-zinc-300">
+                      Código de acesso
+                    </Label>
+
+                    <Input
+                      value={accessCode}
+                      onChange={(e) =>
+                        setAccessCode(e.target.value)
+                      }
+                      required
+                      className="
+                        h-12
+                        rounded-2xl
+                        border-white/10
+                        bg-white/[0.03]
+                        text-white
+                        placeholder:text-zinc-500
+                        focus-visible:ring-primary
+                      "
+                    />
+
+                    <p className="text-xs text-zinc-500">
+                      Informe o código fornecido pela empresa.
+                    </p>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label className="text-zinc-300">
                       Nome completo
                     </Label>
 
@@ -532,8 +573,7 @@ const Auth = () => {
                   </Button>
 
                   <p className="text-xs text-center text-zinc-500 leading-relaxed">
-                    Novas contas passam por
-                    aprovação administrativa.
+                    O acesso é liberado automaticamente após validação do código.
                   </p>
                 </form>
               </TabsContent>
