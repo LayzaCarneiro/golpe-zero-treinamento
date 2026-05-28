@@ -1,45 +1,81 @@
-import { useEffect, useState } from "react";
+import {
+  useEffect,
+  useState,
+} from "react";
+
 import MembersLayout from "@/components/members/MembersLayout";
+
 import { supabase } from "@/integrations/supabase/client";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { toast } from "@/hooks/use-toast";
-import { Check, X, ShieldCheck } from "lucide-react";
-import { useAuth } from "@/hooks/useAuth";
+
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+
+import { ShieldCheck } from "lucide-react";
 
 interface UserRow {
   id: string;
+
   full_name: string | null;
+
   email: string;
+
   created_at: string;
-  roles: string[];
+
+  role: "admin" | "subscriber";
 }
 
 const AdminPanel = () => {
-  const { user, refreshRoles } = useAuth();
-  const [rows, setRows] = useState<UserRow[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [rows, setRows] = useState<
+    UserRow[]
+  >([]);
+
+  const [loading, setLoading] =
+    useState(true);
 
   const load = async () => {
     setLoading(true);
-    const { data: profiles } = await supabase
-      .from("profiles")
-      .select("id, full_name, email, created_at")
-      .order("created_at", { ascending: false });
 
-    const { data: rolesData } = await supabase.from("user_roles").select("user_id, role");
-    const rolesByUser: Record<string, string[]> = {};
-    (rolesData ?? []).forEach((r: any) => {
-      rolesByUser[r.user_id] = [...(rolesByUser[r.user_id] ?? []), r.role];
-    });
+    const {
+      data,
+      error,
+    } = await supabase.auth.admin.listUsers();
 
-    setRows(
-      (profiles ?? []).map((p: any) => ({
-        ...p,
-        roles: rolesByUser[p.id] ?? [],
-      })),
-    );
+    if (!error) {
+      setRows(
+        data.users.map((u) => ({
+          id: u.id,
+
+          full_name:
+            u.user_metadata
+              ?.full_name || null,
+
+          email: u.email || "—",
+
+          created_at:
+            u.created_at,
+
+          role:
+            u.user_metadata
+              ?.role ||
+            "subscriber",
+        }))
+      );
+    }
+
     setLoading(false);
   };
 
@@ -47,99 +83,123 @@ const AdminPanel = () => {
     load();
   }, []);
 
-  const setRole = async (userId: string, newRole: "subscriber" | "admin", removeRoles: string[]) => {
-    // Remover roles antigas
-    if (removeRoles.length > 0) {
-      await supabase.from("user_roles").delete().eq("user_id", userId).in("role", removeRoles as any);
-    }
-    // Adicionar nova
-    const { error } = await supabase.from("user_roles").insert({ user_id: userId, role: newRole });
-    if (error && !error.message.includes("duplicate")) {
-      toast({ title: "Erro", description: error.message, variant: "destructive" });
-      return;
-    }
-    toast({ title: "Atualizado!" });
-    if (userId === user?.id) await refreshRoles();
-    load();
-  };
-
-  const reject = async (userId: string) => {
-    await supabase.from("user_roles").delete().eq("user_id", userId);
-    await supabase.from("profiles").delete().eq("id", userId);
-    toast({ title: "Usuário removido" });
-    load();
-  };
-
   return (
     <MembersLayout>
       <div className="space-y-6">
+        {/* HEADER */}
         <div>
-          <h1 className="text-3xl font-bold flex items-center gap-2">
-            <ShieldCheck className="w-7 h-7 text-primary" /> Painel admin
+          <h1
+            className="
+              text-3xl
+              font-black
+              flex items-center gap-3
+            "
+          >
+            <ShieldCheck
+              className="
+                w-7 h-7
+                text-primary
+              "
+            />
+
+            Painel admin
           </h1>
-          <p className="text-muted-foreground">Aprove novos cadastros e gerencie permissões.</p>
+
+          <p className="text-zinc-400 mt-1">
+            Gerencie os usuários da
+            plataforma.
+          </p>
         </div>
 
-        <Card>
+        {/* USERS */}
+        <Card
+          className="
+            border-white/10
+            bg-white/[0.03]
+            backdrop-blur-xl
+          "
+        >
           <CardHeader>
-            <CardTitle>Usuários</CardTitle>
-            <CardDescription>Pendentes precisam ser aprovados para acessar o conteúdo.</CardDescription>
+            <CardTitle>
+              Usuários cadastrados
+            </CardTitle>
+
+            <CardDescription>
+              Lista de acessos da
+              plataforma.
+            </CardDescription>
           </CardHeader>
+
           <CardContent>
             {loading ? (
-              <p className="text-muted-foreground">Carregando...</p>
+              <p className="text-zinc-400">
+                Carregando...
+              </p>
             ) : (
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Nome</TableHead>
-                    <TableHead>E-mail</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead className="text-right">Ações</TableHead>
+                    <TableHead>
+                      Nome
+                    </TableHead>
+
+                    <TableHead>
+                      E-mail
+                    </TableHead>
+
+                    <TableHead>
+                      Cargo
+                    </TableHead>
+
+                    <TableHead>
+                      Criado em
+                    </TableHead>
                   </TableRow>
                 </TableHeader>
+
                 <TableBody>
                   {rows.map((r) => {
-                    const isPending = r.roles.includes("pending") && !r.roles.includes("subscriber") && !r.roles.includes("admin");
-                    const isSubscriber = r.roles.includes("subscriber");
-                    const isAdmin = r.roles.includes("admin");
+                    const isAdmin =
+                      r.role === "admin";
+
                     return (
-                      <TableRow key={r.id}>
-                        <TableCell>{r.full_name || "—"}</TableCell>
-                        <TableCell className="text-sm">{r.email}</TableCell>
+                      <TableRow
+                        key={r.id}
+                      >
+                        <TableCell>
+                          {r.full_name ||
+                            "—"}
+                        </TableCell>
+
+                        <TableCell>
+                          {r.email}
+                        </TableCell>
+
                         <TableCell>
                           <span
-                            className={`text-xs px-2 py-1 rounded font-semibold ${
-                              isAdmin
-                                ? "bg-primary/10 text-primary"
-                                : isSubscriber
-                                ? "bg-success/10 text-success"
-                                : "bg-warning/10 text-warning-foreground"
-                            }`}
+                            className={`
+                              text-xs
+                              px-3 py-1
+                              rounded-full
+                              font-semibold
+                              ${
+                                isAdmin
+                                  ? "bg-violet-500/15 text-violet-300"
+                                  : "bg-cyan-500/15 text-cyan-300"
+                              }
+                            `}
                           >
-                            {isAdmin ? "Admin" : isSubscriber ? "Assinante" : "Pendente"}
+                            {isAdmin
+                              ? "ADMIN"
+                              : "MEMBRO"}
                           </span>
                         </TableCell>
-                        <TableCell className="text-right space-x-1">
-                          {isPending && (
-                            <>
-                              <Button size="sm" variant="outline" onClick={() => setRole(r.id, "subscriber", ["pending"])}>
-                                <Check className="w-4 h-4 mr-1" /> Aprovar
-                              </Button>
-                              <Button size="sm" variant="ghost" onClick={() => reject(r.id)}>
-                                <X className="w-4 h-4" />
-                              </Button>
-                            </>
-                          )}
-                          {isSubscriber && !isAdmin && (
-                            <Button size="sm" variant="outline" onClick={() => setRole(r.id, "admin", ["subscriber", "pending"])}>
-                              Tornar admin
-                            </Button>
-                          )}
-                          {isAdmin && r.id !== user?.id && (
-                            <Button size="sm" variant="ghost" onClick={() => setRole(r.id, "subscriber", ["admin"])}>
-                              Remover admin
-                            </Button>
+
+                        <TableCell className="text-zinc-400 text-sm">
+                          {new Date(
+                            r.created_at
+                          ).toLocaleDateString(
+                            "pt-BR"
                           )}
                         </TableCell>
                       </TableRow>
@@ -150,49 +210,8 @@ const AdminPanel = () => {
             )}
           </CardContent>
         </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Primeiro admin</CardTitle>
-            <CardDescription>
-              Como o cadastro inicial cria todos como "pendente", você pode se promover ao primeiro admin abaixo (apenas
-              enquanto não houver nenhum admin no sistema).
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <PromoteSelf onDone={load} />
-          </CardContent>
-        </Card>
       </div>
     </MembersLayout>
-  );
-};
-
-const PromoteSelf = ({ onDone }: { onDone: () => void }) => {
-  const { user, refreshRoles } = useAuth();
-  const [loading, setLoading] = useState(false);
-
-  const promote = async () => {
-    if (!user) return;
-    setLoading(true);
-    const { count } = await supabase.from("user_roles").select("*", { count: "exact", head: true }).eq("role", "admin");
-    if ((count ?? 0) > 0) {
-      toast({ title: "Já existe admin", description: "Peça para um admin existente promover você.", variant: "destructive" });
-      setLoading(false);
-      return;
-    }
-    await supabase.from("user_roles").delete().eq("user_id", user.id).in("role", ["pending", "subscriber"] as any);
-    await supabase.from("user_roles").insert({ user_id: user.id, role: "admin" });
-    toast({ title: "Você é admin!" });
-    await refreshRoles();
-    onDone();
-    setLoading(false);
-  };
-
-  return (
-    <Button onClick={promote} disabled={loading} variant="outline">
-      Tornar-me o primeiro admin
-    </Button>
   );
 };
 

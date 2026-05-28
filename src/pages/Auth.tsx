@@ -26,13 +26,13 @@ import {
 import { toast } from "@/hooks/use-toast";
 
 import {
-  Shield,
   Loader2,
   ArrowLeft,
   LockKeyhole,
 } from "lucide-react";
 
-const ACCESS_CODE = "SecureL1n&";
+const MEMBER_CODE = "SecureL1n&";
+const ADMIN_CODE = "AdminSecureL1n&";
 
 const signUpSchema = z.object({
   fullName: z
@@ -110,10 +110,18 @@ const Auth = () => {
       return;
     }
 
+    const normalizedCode = parsed.data.accessCode.trim();
+
+    const role =
+      normalizedCode === ADMIN_CODE
+        ? "admin"
+        : normalizedCode === MEMBER_CODE
+        ? "subscriber"
+        : null;
+
     setLoading(true);
 
-    if (parsed.data.accessCode !== ACCESS_CODE
-) {
+    if (!role) {
       setLoading(false);
 
       toast({
@@ -136,8 +144,8 @@ const Auth = () => {
           emailRedirectTo: `${window.location.origin}/members`,
 
           data: {
-            full_name:
-              parsed.data.fullName,
+            full_name: parsed.data.fullName,
+            role,
           },
         },
       });
@@ -157,7 +165,9 @@ const Auth = () => {
     toast({
       title: "Conta criada!",
       description:
-        "Seu acesso foi liberado com sucesso.",
+        role === "admin"
+          ? "Acesso administrativo liberado."
+          : "Seu acesso foi liberado com sucesso.",
     });
 
     navigate("/members");
